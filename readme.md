@@ -1,10 +1,10 @@
 ## Objective  
-The purpose of this document is to present a report on the pros and cons of quantization. In lieu of that, I will specifically target the definition, and applicability of this technique. The first section will deal with defining what quantization and its various forms. The next section briefly talks about where it can be applied. The following section will discuss the experimental setup and finally, the last section will discuss the results.   
+The purpose of this document is to present a report on the pros and cons of quantization. In place of that, I will specifically target the definition and applicability of this technique. The first section will deal with defining quantization and its various forms. The next section briefly talks about where it can be applied. The following section will discuss the experimental setup and finally, the last section will discuss the results.   
   
 ## Definitions  
-The idea of quantization is to project a higher precision floating point number to a lower precision one. The target data type can be either an integer or a floating point number. Before we delve into the specifics, let's first understand how a floating point number is represented.   
+The idea of quantization is to project a higher-precision floating point number to a lower-precision one. The target data type can be either an integer or a floating point number. Before we delve into the specifics, let's first understand how a floating point number is represented.   
   
-A float number of 32 bit precision is represented by splitting the bits into three parts: sign bit, exponent, and mantissa. The sign bit is 1 bit that indicates whether the number is positive or negative. The exponent is 8 bits that represent the power of 2 with a bias. The mantissa is the remaining 23 bits that represent the fractional part of the number. Now, let us say we want to represent the number 0.375 in 32 bit precision. First, we convert the number to binary. 
+A float number of 32-bit precision is represented by splitting the bits into three parts: sign bit, exponent, and mantissa. The sign bit is 1 bit which indicates whether the number is positive or negative. The exponent is 8 bits that represent the power of 2 with a bias. The mantissa is the remaining 23 bits that represent the fractional part of the number. Now, let us say we want to represent the number 0.375 in 32-bit precision. First, we convert the number to binary. 
 $0.375 = 2^{-2} + 2^{-3} = 0.011$ 
 The next step is to normalize the number. We shift the binary point to the left until the first bit is 1. 
 $0.011 = 1.1 \times 2^{-2}$ 
@@ -47,12 +47,12 @@ The matrix multiplication is done using the PyTorch library. The multiplication 
 ## Results and Discussion
 
 The first result we find is that the error rate is not affected by the size of the matrix as shown in the figure below. This makes sense since the quantized product is accumulated in an intermediate tensor of higher precision. This saves the accumulation from overflowing and as a result, the degradation is only dependent on the quality of the quantization of each value. Since the values are sampled from the same distribution, the aggregate quantization error will tend towards a normal distribution with increasing narrow range for larger matrices. For smaller matrices, we may see some variation. This effect is visible for the matrices of size 10 where the error rate is smaller or larger than for larger matrices. But beyond that the error is unaffected. 
-![](assets/expected_error.png)
+![Expected Error](assets/expected_error.png)
 
 The key result we find is that the errors are correlated with coverage. As we increase the coverage, the error reduces as shown in the figure below. This makes sense since for a smaller coverage, the number lying outside of the range will be clipped. While larger coverage can accommodate more numbers. It is important to note that the large coverage is prone to poorly resolving dense distributions. For example, covering 99.99% of numbers in a normal distribution will poorly resolve the numbers near the peak. And since numbers are densely packed there, this resolution error will affect the downstream computation as a result. In our practice, however, we did not observe this effect. 
-![](assets/cover_ground_truth.png)
+![Ground Truth Coverage](assets/cover_gt.png)
 Another effect of using coverage as the guide to compute the quantization factor is that the scale factor increases for large matrices. This result is a direct consequence of the scale factor being dependent on the range of the numbers in $Y$. Since each number is a sum of values sampled from an IID, their sum will tend to a normal distribution with a proportionally larger range. 
-![](assets/scale_factor_matrix_size.png)
+![Effect of Scale Factor](assets/scale_factor_matrix_size.png)
 ## Conclusion
 From the above study, one can draw the conclusion that with an appropriate quantization factor, one can perform quantized arithmetic to reduce memory footprint if each value in the operand matrices is sampled from an IID. This is often the case at the beginning of training a neural network. Later, during the training, however, this may not be the case. 
 
