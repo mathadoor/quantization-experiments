@@ -9,7 +9,7 @@ $0.375 = 2^{-2} + 2^{-3} = 0.011$
 The next step is to normalize the number. We shift the binary point to the left until the first bit is 1. 
 $0.011 = 1.1 \times 2^{-2}$ 
 The sign bit is 0. The exponent is -2, but we add a bias to account for the negative exponents. The bias is 127, so the exponent is 125. The binary representation of the exponent is 01111101. The mantissa is 100000000000000000000000. Thus, the binary representation of 0.375 is:
-![](assets/bits-explanation.png).  
+![Bits Explanation](assets/bits-explanation.png).  
 Notice the number of mantissa bits represent the precision of the number, while the exponent bits are needed to represent  a wide range of numbers. Thus by reducing the number of bits in the representation, we can reduce the memory footprint of storing the number. This has a downstream effect on the computational cost of operations. As such, quantization is a technique used to reduce the memory footprint as well as the computational cost of operations. This can be utilized in deep learning models to load bigger models on smaller devices while also speeding up the computation. Now, let us see how quantization works in practice. For the purpose of this article, I will only focus on the transition from FP32 to Int8. Let us see how quantization is achieved and the corresponding arithmetic is performed.
 
 ## Quantization Arithmetic
