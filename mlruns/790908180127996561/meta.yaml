@@ -1,0 +1,6 @@
+artifact_location: file:///home/mathadoor/Documents/peft-study/mlruns/790908180127996561
+creation_time: 1714222560748
+experiment_id: '790908180127996561'
+last_update_time: 1714222560748
+lifecycle_stage: active
+name: gemm_matrix_size

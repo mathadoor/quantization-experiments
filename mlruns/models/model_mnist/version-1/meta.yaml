@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1714265114759
+current_stage: None
+description: null
+last_updated_timestamp: 1714265114759
+name: model_mnist
+run_id: c7c93ad5547b47f39a12b27fcabe590d
+run_link: null
+source: file:///home/mathadoor/Documents/peft-study/mlruns/954245663588550282/c7c93ad5547b47f39a12b27fcabe590d/artifacts/mnist_model
+status: READY
+status_message: null
+storage_location: file:///home/mathadoor/Documents/peft-study/mlruns/954245663588550282/c7c93ad5547b47f39a12b27fcabe590d/artifacts/mnist_model
+user_id: null
+version: 1
