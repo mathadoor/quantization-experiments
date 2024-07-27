@@ -1,5 +1,9 @@
 ## Objective  
-The purpose of this document is to present a report on the pros and cons of quantization. In place of that, I will specifically target the definition and applicability of this technique. The first section will deal with defining quantization and its various forms. The next section briefly talks about where it can be applied. The following section will discuss the experimental setup and finally, the last section will discuss the results.   
+The purpose of this document is to present a report on the pros and cons of quantization. In place of that, I will specifically target the definition and applicability of this technique. The report is organized as follows:  
+- Quantization Definition   
+- Quantization arithmetic   
+- Experimental Setup   
+- Results and discussion    
   
 ## Definitions  
 The idea of quantization is to project a higher-precision floating point number to a lower-precision one. The target data type can be either an integer or a floating point number. Before we delve into the specifics, let's first understand how a floating point number is represented.   
