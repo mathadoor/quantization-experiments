@@ -6,7 +6,7 @@ The purpose of this document is to present a report on the pros and cons of quan
 - Results and discussion    
   
 ## Definitions  
-The idea of quantization is to project a higher-precision floating point number to a lower-precision one. The target data type can be either an integer or a floating point number. Before we delve into the specifics, let's first understand how a floating point number is represented.   
+The idea of quantization is to project a high-precision floating point number to a lower-precision one. The target data type can be either an integer or a floating point number. Before we delve into the specifics, let's first understand how a floating point number is represented.   
   
 A float number of 32-bit precision is represented by splitting the bits into three parts: sign bit, exponent, and mantissa. The sign bit is 1 bit which indicates whether the number is positive or negative. The exponent is 8 bits that represent the power of 2 with a bias. The mantissa is the remaining 23 bits that represent the fractional part of the number. Now, let us say we want to represent the number 0.375 in 32-bit precision. First, we convert the number to binary. 
 $0.375 = 2^{-2} + 2^{-3} = 0.011$ 
